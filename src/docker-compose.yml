@@ -1,0 +1,30 @@
+version: "3.5"
+
+services:
+  consul:
+    image: consul
+    container_name: consul
+    networks:
+      - internal
+    ports:
+      - "8500:8500"
+  service1:
+    image: anton31kah/service1
+    networks:
+      - internal
+    ports:
+      - "8010:8010"
+    container_name: service1
+  service2:
+    image: anton31kah/service2
+    networks:
+      - internal
+    ports:
+      - "8020:8020"
+    container_name: service2
+
+
+networks:
+  internal:
+    name: internal
+    driver: bridge
