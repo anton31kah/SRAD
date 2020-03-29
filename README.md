@@ -6,8 +6,10 @@
 consul = Consul(host="consul", port=consul_port)
 ```
 Where
-- `consul` in `host="consul"` is a docker network.
+- `consul` in `host="consul"` is the hostname of the container running consul server.
 - `consul_port` in `port=consul_port` is 8500 (the default consul port).
+
+<br />
 
 ```python
 check = Check.http(f"http://{ip}:{service_port}/", interval="10s", timeout="5s", deregister="1s")
@@ -15,8 +17,8 @@ check = Check.http(f"http://{ip}:{service_port}/", interval="10s", timeout="5s",
 Where
 - `ip` is the current service address (which we are registering).
 - `service_port` is the current service port.
-- Ending the url with simply `/` means it will check the default url
-    - So we should have something like this in fast api code
+- Ending the url with simply `/` means it will check the default url.
+    - So we should have something like this in fast api code:
     ```python
     @app.get("/")
     def index():
@@ -27,14 +29,16 @@ Where
 - `deregister="1s"` after how much time will the service go from 'critical state' to 'deregistered'.
     - Note however that consul takes a minimum of around 1 minute to perform such action.
     - So putting anything less than that won't change consul's default.
-- Check more details [in the official consul docs](https://www.consul.io/api/agent/check.html#parameters-1)
+- Check more details [in the official consul docs](https://www.consul.io/api/agent/check.html#parameters-1).
+
+<br />
 
 ```python
 service.register(service_name, service_id=service_name, address=ip, port=service_port, check=check)
 ```
 Where
 - `service_name` is the service name and id so it should be unique.
-- `ip` is the same we used in the check, that is, the current service address
+- `ip` is the same we used in the check, that is, the current service address.
 - `service_port`, same story for this one.
 - `check` is the check we created earlier.
 
@@ -56,7 +60,7 @@ service_info = service_list[service_id]
 return service_info['Address'], service_info['Port']
 ```
 - Since `service_info` is `dict` object so we can get the response details as shown.
-- Other attributes that can be used can be found in the [official docs](https://www.consul.io/api/agent/service.html#sample-response-1)
+- Other attributes that can be used can be found in the [official docs](https://www.consul.io/api/agent/service.html#sample-response-1).
 
 ## Building it
 
@@ -64,6 +68,7 @@ return service_info['Address'], service_info['Port']
 docker-compose up -d
 ```
 We suggest using the simple docker compose file.
+
 If you want to use python consul in your project, here is how you can do it:
 
 - First you need to use `pip freeze > requirements.txt` to add the dependencies.
@@ -78,8 +83,8 @@ If you want to use python consul in your project, here is how you can do it:
 
 ## Endpoints
 We host
-- service1 on [localhost:8010](http://localhost:8010/)
-- service2 on [localhost:8020](http://localhost:8020/)
+- service1 on [localhost:8010](http://localhost:8010/).
+- service2 on [localhost:8020](http://localhost:8020/).
 
 ### Service1 Endpoints
 - `/` index page, used by the health check.
