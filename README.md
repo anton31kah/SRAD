@@ -56,6 +56,8 @@ service_info = service_list[service_id]
 - `agent.services()` returns the registered services.
 - `service_id` is the service we are searching for its address and port (or other details).
 
+<br />
+
 ```python
 return service_info['Address'], service_info['Port']
 ```
